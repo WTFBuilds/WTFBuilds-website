@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5 5">
+  <rect width="5" height="5" rx="0.8" fill="#0e0e10"/>
+  <rect x="0.07" y="0.07" width="0.86" height="0.86" rx="0.17" fill="#f2f2ef"/>
+  <rect x="0.07" y="1.07" width="0.86" height="0.86" rx="0.17" fill="#f2f2ef"/>
+  <rect x="0.07" y="2.07" width="0.86" height="0.86" rx="0.17" fill="#f2f2ef"/>
+  <rect x="0.07" y="3.07" width="0.86" height="0.86" rx="0.17" fill="#f2f2ef"/>
+  <rect x="4.07" y="0.07" width="0.86" height="0.86" rx="0.17" fill="#f2f2ef"/>
+  <rect x="4.07" y="1.07" width="0.86" height="0.86" rx="0.17" fill="#f2f2ef"/>
+  <rect x="4.07" y="2.07" width="0.86" height="0.86" rx="0.17" fill="#f2f2ef"/>
+  <rect x="4.07" y="3.07" width="0.86" height="0.86" rx="0.17" fill="#f2f2ef"/>
+  <rect x="2.07" y="2.07" width="0.86" height="0.86" rx="0.17" fill="#c6f43c"/>
+  <rect x="2.07" y="3.07" width="0.86" height="0.86" rx="0.17" fill="#c6f43c"/>
+  <rect x="1.07" y="4.07" width="0.86" height="0.86" rx="0.17" fill="#f2f2ef"/>
+  <rect x="3.07" y="4.07" width="0.86" height="0.86" rx="0.17" fill="#f2f2ef"/>
+</svg>
