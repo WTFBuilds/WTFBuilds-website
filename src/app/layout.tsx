@@ -15,8 +15,28 @@ const mono = JetBrains_Mono({
   variable: "--font-jetbrains-mono",
 });
 
+const SITE_URL = "https://www.wtfbuilds.com";
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "WTFBuilds",
+  alternateName: ["wtfbuilds", "Witness The Future Builds"],
+  url: SITE_URL,
+  logo: `${SITE_URL}/logo.png`,
+  description:
+    "A builder playground shipping web tools, open source and robots in public. Home of InvertisPrep.",
+  foundingDate: "2026",
+  sameAs: [
+    "https://github.com/WTFBuilds",
+    "https://www.instagram.com/wtfbuilds/",
+    "https://www.linkedin.com/company/wtfbuilds/",
+    "https://www.invertisprep.in",
+  ],
+};
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.wtfbuilds.com"),
+  metadataBase: new URL(SITE_URL),
   title: { default: "wtfbuilds — witness the future builds", template: "%s — wtfbuilds" },
   description:
     "WTFBuilds is a builder playground — web tools, open source and robots, shipped in public. Home of InvertisPrep.",
@@ -26,8 +46,17 @@ export const metadata: Metadata = {
     description: "A builder playground shipping web tools, open source and robots in public.",
     url: "/",
     siteName: "wtfbuilds",
-    images: [{ url: "/logo.png", width: 1040, height: 1040 }],
+    images: [
+      { url: "/og.png", width: 1200, height: 630, alt: "wtfbuilds — witness the future builds" },
+      { url: "/logo.png", width: 1040, height: 1040, alt: "the wtfbuilds pixel W" },
+    ],
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "wtfbuilds — witness the future builds",
+    description: "A builder playground shipping web tools, open source and robots in public.",
+    images: ["/og.png"],
   },
 };
 
@@ -43,6 +72,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${display.variable} ${mono.variable}`}>
       <body className="bg-bg font-display text-text antialiased">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         <SmoothScroll>
           <Nav />
           <main>{children}</main>
