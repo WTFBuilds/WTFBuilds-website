@@ -85,3 +85,9 @@ export const CATEGORIES: { id: Category | "all"; label: string }[] = [
 ];
 
 export const ORG_GITHUB = "https://github.com/WTFBuilds";
+
+export const SOCIALS: { label: string; href: string }[] = [
+  { label: "github org", href: "https://github.com/WTFBuilds" },
+  { label: "instagram", href: "https://www.instagram.com/wtfbuilds/" },
+  { label: "linkedin", href: "https://www.linkedin.com/company/wtfbuilds/" },
+];

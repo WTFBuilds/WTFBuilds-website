@@ -105,11 +105,19 @@ export default function Nav() {
             </Link>
           ))}
         </nav>
-        <div className="flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.25em] text-muted">
-          <span>witness the future builds</span>
-          <a href="https://github.com/WTFBuilds" target="_blank" rel="noreferrer" className="text-accent">
-            github ↗
-          </a>
+        <div className="space-y-4 font-mono text-[10px] uppercase tracking-[0.25em] text-muted">
+          <p>witness the future builds</p>
+          <div className="flex flex-wrap gap-x-6 gap-y-2">
+            <a href="https://github.com/WTFBuilds" target="_blank" rel="noreferrer" className="text-accent">
+              github ↗
+            </a>
+            <a href="https://www.instagram.com/wtfbuilds/" target="_blank" rel="noreferrer" className="transition-colors hover:text-text">
+              instagram ↗
+            </a>
+            <a href="https://www.linkedin.com/company/wtfbuilds/" target="_blank" rel="noreferrer" className="transition-colors hover:text-text">
+              linkedin ↗
+            </a>
+          </div>
         </div>
       </div>
     </>

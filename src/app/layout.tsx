@@ -16,13 +16,16 @@ const mono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://wtfbuilds.vercel.app"),
+  metadataBase: new URL("https://www.wtfbuilds.com"),
   title: { default: "wtfbuilds — witness the future builds", template: "%s — wtfbuilds" },
   description:
     "WTFBuilds is a builder playground — web tools, open source and robots, shipped in public. Home of InvertisPrep.",
+  alternates: { canonical: "/" },
   openGraph: {
     title: "wtfbuilds — witness the future builds",
     description: "A builder playground shipping web tools, open source and robots in public.",
+    url: "/",
+    siteName: "wtfbuilds",
     images: [{ url: "/logo.png", width: 1040, height: 1040 }],
     type: "website",
   },

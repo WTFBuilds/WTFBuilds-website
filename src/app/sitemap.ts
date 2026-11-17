@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 
-const BASE = "https://wtfbuilds.vercel.app";
+const BASE = "https://www.wtfbuilds.com";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return ["", "/projects", "/robotics", "/about"].map((path) => ({

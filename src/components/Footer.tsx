@@ -1,5 +1,6 @@
 import Link from "next/link";
 import PixelW from "./PixelW";
+import { SOCIALS } from "@/lib/projects";
 
 const COLS = [
   {
@@ -13,7 +14,7 @@ const COLS = [
   {
     head: "outside",
     items: [
-      { label: "github org ↗", href: "https://github.com/WTFBuilds", ext: true },
+      ...SOCIALS.map((s) => ({ label: `${s.label} ↗`, href: s.href, ext: true })),
       { label: "invertisprep.in ↗", href: "https://www.invertisprep.in", ext: true },
     ],
   },
