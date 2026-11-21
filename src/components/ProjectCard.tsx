@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { Category, Project } from "@/lib/projects";
 import StatusLED from "./StatusLED";
 
@@ -12,6 +13,17 @@ export default function ProjectCard({ project, index }: { project: Project; inde
   const p = project;
   return (
     <article className="group relative flex flex-col gap-4 border border-line bg-bg p-6 transition-colors duration-300 hover:border-accent/50 hover:bg-surface md:p-7">
+      {p.image && (
+        <div className="relative aspect-video overflow-hidden rounded-[6px] border border-line">
+          <Image
+            src={p.image.src}
+            width={p.image.width}
+            height={p.image.height}
+            alt={p.image.alt}
+            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+          />
+        </div>
+      )}
       <div className="flex items-center justify-between font-mono text-[10px] tracking-[0.25em]">
         <span className="text-muted/70">
           {String(index + 1).padStart(3, "0")} <span className="text-muted/40">/ {p.year}</span>

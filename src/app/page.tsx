@@ -1,26 +1,17 @@
 import Link from "next/link";
+import Image from "next/image";
 import Hero from "@/components/home/Hero";
 import Manifesto from "@/components/home/Manifesto";
 import Marquee from "@/components/motion/Marquee";
 import Reveal from "@/components/motion/Reveal";
 import Terminal from "@/components/Terminal";
 import StatusLED from "@/components/StatusLED";
-import { ORG_GITHUB, PROJECTS, type Status } from "@/lib/projects";
+import ProjectCard from "@/components/ProjectCard";
+import { ORG_GITHUB, PROJECTS } from "@/lib/projects";
 
 const TICKER = ["build", "ship", "break", "rebuild"];
 
-const BOARD_ROWS: { name: string; status: Status; meta: string; href?: string }[] = [
-  {
-    name: "invertisprep.in",
-    status: "live",
-    meta: "papers, notes, quizzes — in student hands",
-    href: "https://www.invertisprep.in",
-  },
-  { name: "wtfbuilds.site", status: "live", meta: "you are here", href: "/projects" },
-  { name: "build.001 — line follower", status: "building", meta: "chassis done · brains pending" },
-  { name: "build.002 — arm.mk1", status: "planned", meta: "torque math in progress" },
-  { name: "untitled tool 01", status: "planned", meta: "slot open" },
-];
+const LATEST_SLUGS = ["ai-resume-builder", "melon-mc-engine"];
 
 function Ticker() {
   return (
@@ -45,6 +36,9 @@ function Ticker() {
 
 function Featured() {
   const featured = PROJECTS.find((p) => p.featured)!;
+  const latest = LATEST_SLUGS.map((s) => PROJECTS.find((p) => p.slug === s)).filter(
+    (p): p is (typeof PROJECTS)[number] => Boolean(p),
+  );
   return (
     <section className="px-5 py-24 md:px-10 md:py-32">
       <Reveal>
@@ -59,59 +53,65 @@ function Featured() {
           href={featured.links?.site}
           target="_blank"
           rel="noreferrer"
-          className="group grid gap-8 border border-line bg-surface p-7 transition-colors duration-300 hover:border-accent/50 md:grid-cols-[auto_1fr_auto] md:items-center md:p-10"
+          className="group grid gap-8 border border-line bg-surface p-7 transition-colors duration-300 hover:border-accent/50 md:grid-cols-[1fr_400px] md:items-center md:p-10"
         >
-          <span
-            className="text-outline text-outline-thin font-display text-7xl font-bold leading-none transition-colors group-hover:[-webkit-text-stroke-color:var(--color-accent)] md:text-8xl"
-            aria-hidden="true"
-          >
-            001
-          </span>
-          <div>
-            <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
-              <h3 className="font-display text-3xl font-bold lowercase tracking-tight md:text-4xl">
-                {featured.name}
-              </h3>
+          <div className="flex flex-col gap-3">
+            <div className="flex items-center gap-5">
+              <span
+                className="text-outline text-outline-thin font-display text-5xl font-bold leading-none transition-colors group-hover:[-webkit-text-stroke-color:var(--color-accent)] md:text-6xl"
+                aria-hidden="true"
+              >
+                001
+              </span>
               <StatusLED status={featured.status} />
             </div>
-            <p className="mt-3 max-w-lg leading-relaxed text-muted">{featured.tagline}</p>
-            <p className="mt-4 font-mono text-[10px] uppercase tracking-[0.2em] text-accent/80">
+            <h3 className="font-display text-3xl font-bold lowercase tracking-tight md:text-4xl">
+              {featured.name}
+            </h3>
+            <p className="max-w-lg leading-relaxed text-muted">{featured.tagline}</p>
+            <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-accent/80">
               &gt; {featured.note}
             </p>
+            <div className="mt-3 flex items-center gap-6 font-mono text-sm">
+              <span className="text-accent transition-transform duration-300 group-hover:translate-x-1">
+                visit ↗
+              </span>
+              <span className="text-muted transition-colors group-hover:text-text">repo ↗</span>
+              <span className="text-xs text-muted/70">{featured.year}</span>
+            </div>
           </div>
-          <div className="flex items-center gap-6 md:flex-col md:items-end md:gap-4">
-            <span className="font-mono text-xs text-muted/70">{featured.year}</span>
-            <span className="font-mono text-sm text-accent transition-transform duration-300 group-hover:translate-x-1 md:translate-y-0">
-              visit ↗
-            </span>
-          </div>
+          {featured.image && (
+            <div className="relative overflow-hidden rounded-[10px] border border-line">
+              <Image
+                src={featured.image.src}
+                width={featured.image.width}
+                height={featured.image.height}
+                alt={featured.image.alt}
+                className="w-full transition-transform duration-700 group-hover:scale-[1.03]"
+              />
+            </div>
+          )}
         </a>
       </Reveal>
 
-      <div className="mt-6 grid gap-6 md:grid-cols-2">
-        {[
-          {
-            t: "open slot — tool",
-            d: "reserved for the first open-source tool of the org. name undecided, intent not.",
-          },
-          {
-            t: "open slot — robot",
-            d: "reserved for build.002, and for whatever else escapes the lab.",
-          },
-        ].map((slot, i) => (
-          <Reveal key={slot.t} delay={0.08 * i}>
-            <div className="flex flex-col gap-4 border border-dashed border-line p-7 transition-colors hover:border-muted">
-              <span className="font-mono text-[10px] tracking-[0.25em] text-muted/60">
-                {String(i + 2).padStart(3, "0")}
-              </span>
-              <h3 className="font-display text-xl font-bold lowercase tracking-tight text-muted">
-                {slot.t}
-              </h3>
-              <p className="text-sm leading-relaxed text-muted/80">{slot.d}</p>
-              <StatusLED status="planned" className="mt-2" />
-            </div>
+      <div className="mt-6 grid gap-5 md:grid-cols-3">
+        {latest.map((p) => (
+          <Reveal key={p.slug} delay={0.08}>
+            <ProjectCard project={p} index={PROJECTS.indexOf(p)} />
           </Reveal>
         ))}
+        <Reveal delay={0.16}>
+          <div className="flex h-full flex-col gap-4 border border-dashed border-line p-7 transition-colors hover:border-muted">
+            <span className="font-mono text-[10px] tracking-[0.25em] text-muted/60">000</span>
+            <h3 className="font-display text-xl font-bold lowercase tracking-tight text-muted">
+              open slot
+            </h3>
+            <p className="text-sm leading-relaxed text-muted/80">
+              reserved for whatever we break next. bring ideas.
+            </p>
+            <StatusLED status="planned" className="mt-auto" />
+          </div>
+        </Reveal>
       </div>
     </section>
   );
@@ -184,28 +184,31 @@ function Board() {
             </span>
           </div>
           <div className="px-5 py-2">
-            {BOARD_ROWS.map((r) => (
-              <div
-                key={r.name}
-                className="flex items-baseline gap-3 border-b border-line/60 py-3.5 font-mono text-sm last:border-b-0"
-              >
-                {r.href ? (
-                  <a
-                    href={r.href}
-                    target={r.href.startsWith("http") ? "_blank" : undefined}
-                    rel={r.href.startsWith("http") ? "noreferrer" : undefined}
-                    className="text-text/90 transition-colors hover:text-accent"
-                  >
-                    {r.name}
-                  </a>
-                ) : (
-                  <span className="text-text/90">{r.name}</span>
-                )}
-                <StatusLED status={r.status} className="shrink-0" />
-                <span className="leader hidden sm:block" aria-hidden="true" />
-                <span className="hidden shrink-0 text-xs text-muted/70 sm:block">{r.meta}</span>
-              </div>
-            ))}
+            {PROJECTS.map((p) => {
+              const href = p.links?.site ?? p.links?.repo;
+              return (
+                <div
+                  key={p.slug}
+                  className="flex items-baseline gap-3 border-b border-line/60 py-3.5 font-mono text-sm last:border-b-0"
+                >
+                  {href ? (
+                    <a
+                      href={href}
+                      target={href.startsWith("http") ? "_blank" : undefined}
+                      rel={href.startsWith("http") ? "noreferrer" : undefined}
+                      className="text-text/90 transition-colors hover:text-accent"
+                    >
+                      {p.name}
+                    </a>
+                  ) : (
+                    <span className="text-text/90">{p.name}</span>
+                  )}
+                  <StatusLED status={p.status} className="shrink-0" />
+                  <span className="leader hidden sm:block" aria-hidden="true" />
+                  <span className="hidden shrink-0 text-xs text-muted/70 sm:block">{p.note}</span>
+                </div>
+              );
+            })}
           </div>
         </div>
       </Reveal>
